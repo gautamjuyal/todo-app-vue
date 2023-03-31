@@ -2,7 +2,10 @@
   <div class="todo-show">
     <div class="top-bar">
       <router-link to="/"><button type="button">Back</button></router-link>
-      <button type="button" @click="toggleEditState">Edit</button>
+      <div class="todo-actions">
+        <button type="button" @click="updateTodoStatus">Mark as Done</button>
+        <button type="button" @click="toggleEditState">Edit</button>
+      </div>
     </div>
 
     <div class="content-area" v-if="!editState">
@@ -31,9 +34,10 @@ export default {
   props: ["todo"],
   data() {
     return {
-      editState: true,
+      editState: false,
       title: this.todo.title,
       text: this.todo.text,
+      isDone: this.todo.isDone,
     };
   },
   methods: {
@@ -49,6 +53,13 @@ export default {
       });
 
       this.editState = false;
+    },
+    updateTodoStatus() {
+      this.$store.dispatch("updateStatus", {
+        id: this.todo.id,
+        isDone: !this.isDone,
+      });
+      console.log(this.isDone);
     },
   },
 };
@@ -80,6 +91,11 @@ export default {
   cursor: pointer;
   border-color: transparent;
   padding: 10px 20px;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 20px;
 }
 
 .content-area,

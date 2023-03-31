@@ -1,8 +1,8 @@
 <template>
-  <router-link :to="{ name: 'todo-show', params: { todo: todo } }">
+  <router-link :to="{ name: 'todo-show', params: { id: todo.id, todo: todo } }">
     <div class="todo-card" :class="Done">
-      <h2>{{ cardHeader }}</h2>
-      <p>{{ cardText }}</p>
+      <h2>{{ todo.title }}</h2>
+      <p>{{ todo.text }}</p>
     </div>
   </router-link>
 </template>
@@ -10,14 +10,11 @@
 <script>
 export default {
   props: {
-    isDone: Boolean,
-    cardHeader: String,
-    cardText: String,
     todo: Object,
   },
   computed: {
     Done() {
-      if (this.isDone) return "done";
+      if (this.todo.isDone) return "done";
       else return "";
     },
   },
@@ -42,8 +39,8 @@ export default {
 }
 
 .todo-card.done {
-  background: #1d123f;
-  color: grey;
+  background: #00000020;
+  color: #727272;
 }
 
 h2 {

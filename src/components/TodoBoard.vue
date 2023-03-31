@@ -1,12 +1,6 @@
 <template>
   <div class="todo-board">
-    <TodoCard
-      v-for="todo in todoArray"
-      :key="todo.id"
-      :cardHeader="todo.title"
-      :cardText="todo.text"
-      :todo="todo"
-    />
+    <TodoCard v-for="todo in todoArray" :key="todo.id" :todo="todo" />
   </div>
 </template>
 
