@@ -32,6 +32,7 @@ export default {
 
 ::-webkit-scrollbar-thumb {
   background: #c2c2c2;
+  border-radius: 25px;
 }
 .todo-board {
   background: #fff;
@@ -42,10 +43,9 @@ export default {
   overflow-y: scroll;
   display: grid;
   place-items: center;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: min-content;
-  row-gap: 10px;
-  column-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 20px;
+  column-gap: 10px;
   margin: 0 auto;
 }
 </style>

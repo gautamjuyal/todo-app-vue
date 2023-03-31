@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     iconSrc() {
-      return require("@/assets/icons/" + this.src + ".png");
+      return require("@/assets/icons/" + this.src + ".svg");
     },
   },
 };
@@ -46,7 +46,7 @@ export default {
 }
 
 img {
-  width: 20px;
+  width: 25px;
   filter: invert(1);
 }
 </style>

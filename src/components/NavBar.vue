@@ -2,13 +2,13 @@
   <div class="nav">
     <div class="links">
       <NavLink src="todos" page="home" />
-      <NavLink src="new" page="add-todo" />
+      <NavLink src="add" page="add-todo" />
       <NavLink src="search" />
       <NavLink src="audio" />
     </div>
     <div class="actions">
-      <NavLink src="search" />
-      <NavLink src="audio" />
+      <NavLink src="settings" />
+      <NavLink src="logout" />
     </div>
   </div>
 </template>

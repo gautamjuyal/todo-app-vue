@@ -1,10 +1,18 @@
 <template>
   <div class="todo-show">
     <div class="top-bar">
-      <router-link to="/"><button type="button">Back</button></router-link>
+      <router-link to="/"
+        ><button type="button">
+          <img src="@/assets/icons/back.svg" /><span>Back</span>
+        </button></router-link
+      >
       <div class="todo-actions">
-        <button type="button" @click="updateTodoStatus">Mark as Done</button>
-        <button type="button" @click="toggleEditState">Edit</button>
+        <button type="button" @click="updateTodoStatus">
+          <img src="@/assets/icons/check.svg" /><span>Mark as Done</span>
+        </button>
+        <button type="button" @click="toggleEditState">
+          <img src="@/assets/icons/edit.svg" /><span>Edit</span>
+        </button>
       </div>
     </div>
 
@@ -86,11 +94,21 @@ export default {
 }
 
 .top-bar button {
-  background: white;
+  background: #744ce2;
+  color: white;
   border-radius: 10px;
   cursor: pointer;
   border-color: transparent;
   padding: 10px 20px;
+  transition: all 200ms ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.top-bar button img {
+  filter: invert(1);
+  width: 20px;
 }
 
 .todo-actions {
@@ -147,8 +165,7 @@ textarea {
   background: #744be4;
   transition: all 200ms ease;
 }
-
-.edit-area button:hover {
+button:hover {
   background: #1e0059;
 }
 </style>

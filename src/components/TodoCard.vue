@@ -26,7 +26,8 @@ export default {
   text-decoration: none;
 }
 .todo-card {
-  min-width: 100%;
+  width: 400px;
+  height: 250px;
   background: #ffffff;
   color: #150d25;
   text-decoration: none;
@@ -36,6 +37,12 @@ export default {
   flex-direction: column;
   gap: 10px;
   border: 1px solid #00000050;
+  transition: all 200ms ease;
+}
+
+.todo-card:hover {
+  transform: scale(1.02);
+  box-shadow: 3px 3px 5px #7b54e340, -3px -3px 5px #7b54e340;
 }
 
 .todo-card.done {
