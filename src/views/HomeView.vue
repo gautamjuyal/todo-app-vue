@@ -17,6 +17,20 @@ export default {
 </script>
 
 <style scoped>
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  width: 8px;
+  background: #00000040;
+  border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6d6d6d;
+  border-radius: 25px;
+}
 .home {
   width: 100%;
   height: 100vh;
@@ -26,9 +40,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 50px;
-}
-
-h1 {
-  font-size: 40px;
+  overflow-y: scroll;
 }
 </style>

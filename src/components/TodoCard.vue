@@ -38,10 +38,23 @@ export default {
   gap: 10px;
   border: 1px solid #00000050;
   transition: all 200ms ease;
+  animation: upAnim 400ms ease;
+}
+
+@keyframes upAnim {
+  0% {
+    opacity: 50%;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateY(0);
+  }
 }
 
 .todo-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
+  border-color: #00000020;
   box-shadow: 3px 3px 5px #7b54e340, -3px -3px 5px #7b54e340;
 }
 

@@ -26,12 +26,14 @@ export default {
   },
   methods: {
     submitHandler() {
-      this.$store.dispatch("addData", {
-        title: this.inputTitle,
-        text: this.inputText,
-      });
-      this.inputTitle = "";
-      this.inputText = "";
+      if (this.inputTitle.trim() && this.inputText.trim()) {
+        this.$store.dispatch("addData", {
+          title: this.inputTitle,
+          text: this.inputText,
+        });
+        this.inputTitle = "";
+        this.inputText = "";
+      }
     },
   },
 };
@@ -46,6 +48,18 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  animation: upAnim 400ms ease;
+}
+
+@keyframes upAnim {
+  0% {
+    transform: translateY(15px);
+    opacity: 50%;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 100%;
+  }
 }
 
 form {

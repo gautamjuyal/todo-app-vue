@@ -1,6 +1,6 @@
 <template>
   <router-link :to="routeInfo">
-    <div class="nav-link">
+    <div class="nav-link" :class="isActive">
       <img :src="iconSrc" alt="nav-btn" />
     </div>
   </router-link>
@@ -27,13 +27,15 @@ export default {
 
 <style scoped>
 .nav-link {
-  width: 50px;
-  height: 50px;
+  padding: 14px 14px;
   background: #1e0059;
   border-radius: 10px;
   display: grid;
   place-items: center;
   transition: all 300ms ease;
+  display: flex;
+  color: white;
+  gap: 5px;
 }
 
 .nav-link:active,

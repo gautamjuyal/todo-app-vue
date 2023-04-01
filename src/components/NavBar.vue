@@ -24,12 +24,12 @@ export default {
 <style scoped>
 .nav {
   height: 100%;
-  width: 100px;
   background: #1e0059;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 30px 0;
+  padding: 30px 20px;
+  align-items: center;
   border-right: 1px solid white;
 }
 

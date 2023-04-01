@@ -8,7 +8,10 @@
       >
       <div class="todo-actions">
         <button type="button" @click="updateTodoStatus">
-          <img src="@/assets/icons/check.svg" /><span>Mark as Done</span>
+          <img src="@/assets/icons/check.svg" /><span v-if="todo.isDone"
+            >Mark as Undone</span
+          >
+          <span v-else>Mark as Done</span>
         </button>
         <button type="button" @click="toggleEditState">
           <img src="@/assets/icons/edit.svg" /><span>Edit</span>
@@ -39,7 +42,7 @@
 
 <script>
 export default {
-  props: ["todo"],
+  props: ["id", "todo"],
   data() {
     return {
       editState: false,
@@ -48,6 +51,11 @@ export default {
       isDone: this.todo.isDone,
     };
   },
+  // created() {
+  //   return {
+  //     todo: this.$store.state.todos.find((todo) => todo.id === this.id),
+  //   };
+  // },
   methods: {
     toggleEditState() {
       this.editState = !this.editState;
@@ -82,6 +90,18 @@ export default {
   width: 100%;
   height: 100%;
   padding: 40px 60px;
+  animation: upAnim 400ms ease;
+}
+
+@keyframes upAnim {
+  0% {
+    transform: translateY(20px);
+    opacity: 50%;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 100%;
+  }
 }
 
 .top-bar {
@@ -104,6 +124,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 5px;
+  text-decoration: none;
 }
 
 .top-bar button img {
@@ -125,6 +146,7 @@ export default {
   margin-top: 20px;
   border-radius: 10px;
   padding: 20px 30px;
+  box-shadow: 4px 4px 20px #00000020;
 }
 
 .content-area h1 {
