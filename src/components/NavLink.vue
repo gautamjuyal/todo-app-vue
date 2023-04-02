@@ -1,6 +1,6 @@
 <template>
   <router-link :to="routeInfo">
-    <div class="nav-link" :class="isActive">
+    <div class="nav-link">
       <img :src="iconSrc" alt="nav-btn" />
     </div>
   </router-link>

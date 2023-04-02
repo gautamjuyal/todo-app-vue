@@ -50,10 +50,14 @@ export default new Vuex.Store({
       },
     ],
   },
-  getters: {},
+  getters: {
+    getTodoById: (state) => (id) => {
+      return state.todos.find((t) => t.id === id);
+    },
+  },
   mutations: {
     ADD_TODO(state, todo) {
-      state.todos.push(todo);
+      state.todos = [todo, ...state.todos];
     },
     UPDATE_TODO_DATA(state, todo) {
       let prevData = state.todos.find((t) => t.id === todo.id);

@@ -19,24 +19,42 @@
       </div>
     </div>
 
-    <div class="content-area" v-if="!editState">
-      <h1>{{ todo.title }}</h1>
-      <p>{{ todo.text }}</p>
+    <div class="main-area">
+      <div class="content-area" v-if="!editState">
+        <h1>{{ todo.title }}</h1>
+        <p>{{ todo.text }}</p>
+      </div>
+
+      <form class="edit-area" @submit.prevent="todoUpdate" v-else>
+        <div class="input-field">
+          <label>Title</label>
+          <input type="text" v-model="title" />
+        </div>
+
+        <div class="input-field">
+          <label>Description</label>
+          <textarea v-model="text"></textarea>
+        </div>
+
+        <button type="submit">Done</button>
+      </form>
+
+      <div class="utility">
+        <div class="dates">
+          <div>
+            <span class="faded">Last modified</span><span>21.03.2023</span>
+          </div>
+          <div>
+            <span class="faded">Date created </span><span>20.03.2023</span>
+          </div>
+        </div>
+
+        <div class="status">
+          <span>Status : {{ isDone ? "Done" : "Undone" }} </span>
+          <img src="@/assets/icons/checkcircle.svg" v-if="isDone" />
+        </div>
+      </div>
     </div>
-
-    <form class="edit-area" @submit.prevent="todoUpdate" v-else>
-      <div class="input-field">
-        <label>Title</label>
-        <input type="text" v-model="title" />
-      </div>
-
-      <div class="input-field">
-        <label>Description</label>
-        <textarea v-model="text"></textarea>
-      </div>
-
-      <button type="submit">Done</button>
-    </form>
   </div>
 </template>
 
@@ -51,11 +69,6 @@ export default {
       isDone: this.todo.isDone,
     };
   },
-  // created() {
-  //   return {
-  //     todo: this.$store.state.todos.find((todo) => todo.id === this.id),
-  //   };
-  // },
   methods: {
     toggleEditState() {
       this.editState = !this.editState;
@@ -86,6 +99,7 @@ export default {
   background-color: #f2f6fe;
   display: flex;
   flex-direction: column;
+  gap: 20px;
   margin: auto;
   width: 100%;
   height: 100%;
@@ -137,13 +151,20 @@ export default {
   gap: 20px;
 }
 
+.main-area {
+  padding: 0 20px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .content-area,
 .edit-area {
-  margin: auto;
   background: white;
   height: 100%;
-  width: 50vw;
-  margin-top: 20px;
+  width: 55vw;
   border-radius: 10px;
   padding: 20px 30px;
   box-shadow: 4px 4px 20px #00000020;
@@ -189,5 +210,41 @@ textarea {
 }
 button:hover {
   background: #1e0059;
+}
+
+.utility {
+  width: 25vw;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 4px 4px 20px #00000020;
+  padding: 20px 30px;
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-bottom: 1px solid #1e0059;
+  padding-bottom: 15px;
+}
+
+.dates div {
+  display: flex;
+  flex-direction: column;
+}
+
+.faded {
+  color: #5a5a5a;
+}
+
+.status {
+  padding: 15px 0;
+  border-bottom: 1px solid #1e0059;
+  display: flex;
+  gap: 6px;
+}
+
+.status img {
+  width: 20px;
 }
 </style>
