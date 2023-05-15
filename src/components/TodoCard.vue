@@ -1,8 +1,8 @@
 <template>
-  <router-link :to="{ name: 'todo-show', params: { id: todo.id, todo: todo } }">
+  <router-link :to="{ name: 'todo-show', params: { id: todo._id } }">
     <div class="todo-card" :class="Done">
       <h2>{{ todo.title }}</h2>
-      <p>{{ todo.text }}</p>
+      <p>{{ todo.subText }}</p>
     </div>
   </router-link>
 </template>

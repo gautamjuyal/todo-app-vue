@@ -1,10 +1,14 @@
 <template>
   <div class="nav">
     <div class="links">
-      <NavLink src="todos" page="home" />
-      <NavLink src="add" page="add-todo" />
-      <NavLink src="search" />
-      <NavLink src="audio" />
+      <NavLink
+        v-for="link in links"
+        :key="link.src"
+        :src="link.src"
+        :page="link.page"
+        :isActive="link.isActive"
+        @mouseover="clickHandler"
+      ></NavLink>
     </div>
     <div class="actions">
       <NavLink src="settings" />
@@ -17,7 +21,27 @@
 import NavLink from "@/components/NavLink";
 
 export default {
+  data() {
+    return {
+      links: [
+        { src: "todos", page: "home", isActive: false },
+        { src: "add", page: "add-todo", isActive: false },
+        { src: "search", page: "", isActive: false },
+        { src: "audio", page: "", isActive: false },
+      ],
+    };
+  },
   components: { NavLink },
+  methods: {
+    clickHandler() {
+      // console.log("click");
+      // for (let link in this.links) {
+      //   console.log("clicked", link);
+      //   if (link.src === e) link.isActive = true;
+      //   else link.isActive = false;
+      // }
+    },
+  },
 };
 </script>
 

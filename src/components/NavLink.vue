@@ -1,6 +1,6 @@
 <template>
   <router-link :to="routeInfo">
-    <div class="nav-link">
+    <div class="nav-link" :class="activeClass">
       <img :src="iconSrc" alt="nav-btn" />
     </div>
   </router-link>
@@ -11,6 +11,7 @@ export default {
   props: {
     src: String,
     page: String,
+    isActive: Boolean,
   },
   data: function () {
     return {
@@ -20,6 +21,10 @@ export default {
   computed: {
     iconSrc() {
       return require("@/assets/icons/" + this.src + ".svg");
+    },
+    activeClass() {
+      if (this.isActive) return "active";
+      else return "";
     },
   },
 };
@@ -38,13 +43,12 @@ export default {
   gap: 5px;
 }
 
-.nav-link:active,
-.nav-link:focus {
-  background: #744be4;
+.active {
+  background-color: #744be4;
 }
 
 .nav-link:hover {
-  filter: brightness(1.5);
+  background-color: #744be4;
 }
 
 img {

@@ -5,50 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    todos: [
-      {
-        id: 1,
-        title: "lakdsjfjkda",
-        text: "akldsfj alskdjf aklsdjf laksdj flakjds fklaj sdfklalsdfklasdflkakdj flkaj dsklfj laksdflakd fsda fj dkf",
-        isDone: true,
-      },
-      {
-        id: 2,
-        title: "lakdsjfjkda",
-        text: "akldsfj alskdjf aklsdjf laksdj flakjds fklaj sdfklalsdfklasdflkakdj flkaj dsklfj laksdflakd fsda fj dkf",
-        isDone: false,
-      },
-      {
-        id: 3,
-        title: "lakdsjfjkda",
-        text: "akldsfj alskdjf aklsdjf laksdj flakjds fklaj sdfklalsdfklasdflkakdj flkaj dsklfj laksdflakd fsda fj dkf",
-        isDone: false,
-      },
-      {
-        id: 4,
-        title: "lakdsjfjkda",
-        text: "akldsfj alskdjf aklsdjf laksdj flakjds fklaj sdfklalsdfklasdflkakdj flkaj dsklfj laksdflakd fsda fj dkf ladsj flkadsj fkljaldskjfjalkdfjk aldsj lfkjakldj flkj askdlfj klasdj flkaj dfl;kjasdflkj adsklf lkadsj fklj asdlkfjlkadsj fiweroiewjr oiweu roiquwetowutis jfd;lkad sf;lkads ufoiwejflkasdf iasfoiweufklasdjf lkads foiwefkasdljflkas",
-        isDone: false,
-      },
-      {
-        id: 5,
-        title: "lakdsjfjkda",
-        text: "akldsfj alskdjf aklsdjf laksdj flakjds fklaj sdfklalsdfklasdflkakdj flkaj dsklfj laksdflakd fsda fj dkf ladsj flkadsj fkljaldskjfjalkdfjk aldsj lfkjakldj flkj askdlfj klasdj flkaj dfl;kjasdflkj adsklf lkadsj fklj asdlkfjlkadsj fiweroiewjr oiweu roiquwetowutis jfd;lkad sf;lkads ufoiwejflkasdf iasfoiweufklasdjf lkads foiwefkasdljflkas",
-        isDone: false,
-      },
-      {
-        id: 6,
-        title: "lakdsjfjkda",
-        text: "akldsfj alskdjf aklsdjf laksdj flakjds fklaj sdfklalsdfklasdflkakdj flkaj dsklfj laksdflakd fsda fj dkf ladsj flkadsj fkljaldskjfjalkdfjk aldsj lfkjakldj flkj askdlfj klasdj flkaj dfl;kjasdflkj adsklf lkadsj fklj asdlkfjlkadsj fiweroiewjr oiweu roiquwetowutis jfd;lkad sf;lkads ufoiwejflkasdf iasfoiweufklasdjf lkads foiwefkasdljflkas",
-        isDone: false,
-      },
-      {
-        id: 7,
-        title: "lakdsjfjkda",
-        text: "akldsfj alskdjf aklsdjf laksdj flakjds fklaj sdfklalsdfklasdflkakdj flkaj dsklfj laksdflakd fsda fj dkf ladsj flkadsj fkljaldskjfjalkdfjk aldsj lfkjakldj flkj askdlfj klasdj flkaj dfl;kjasdflkj adsklf lkadsj fklj asdlkfjlkadsj fiweroiewjr oiweu roiquwetowutis jfd;lkad sf;lkads ufoiwejflkasdf iasfoiweufklasdjf lkads foiwefkasdljflkas",
-        isDone: false,
-      },
-    ],
+    todos: [],
   },
   getters: {
     getTodoById: (state) => (id) => {
@@ -56,6 +13,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    SET_TODOS(state, todos) {
+      state.todos = todos;
+    },
     ADD_TODO(state, todo) {
       state.todos = [todo, ...state.todos];
     },
@@ -70,6 +30,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    setTodos({ commit }, todos) {
+      commit("SET_TODOS", todos);
+    },
     addData({ commit }, todo) {
       commit("ADD_TODO", todo);
     },

@@ -1,19 +1,29 @@
 <template>
   <div class="todo-board">
-    <TodoCard v-for="todo in todoArray" :key="todo.id" :todo="todo" />
+    <TodoCard v-for="todo in todoArray" :key="todo._id" :todo="todo" />
+    <CardLoader v-if="!todoArray.length" />
+    <CardLoader v-if="!todoArray.length" />
+    <CardLoader v-if="!todoArray.length" />
+    <CardLoader v-if="!todoArray.length" />
   </div>
 </template>
 
 <script>
 import TodoCard from "@/components/TodoCard.vue";
+import CardLoader from "@/components/CardLoader.vue";
+import Services from "@/services/services";
 
 export default {
   components: {
     TodoCard,
+    CardLoader,
+  },
+  created() {
+    Services.getData().then((res) => (this.todoArray = res.data.data));
   },
   data() {
     return {
-      todoArray: this.$store.state.todos,
+      todoArray: [],
     };
   },
 };

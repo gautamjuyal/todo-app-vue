@@ -1,7 +1,7 @@
 <template>
   <div class="todo-show">
     <div class="top-bar">
-      <router-link to="/"
+      <router-link :to="{ name: 'home' }"
         ><button type="button">
           <img src="@/assets/icons/back.svg" /><span>Back</span>
         </button></router-link
@@ -22,7 +22,7 @@
     <div class="main-area">
       <div class="content-area" v-if="!editState">
         <h1>{{ todo.title }}</h1>
-        <p>{{ todo.text }}</p>
+        <p>{{ todo.subText }}</p>
       </div>
 
       <form class="edit-area" @submit.prevent="todoUpdate" v-else>
@@ -36,7 +36,12 @@
           <textarea v-model="text"></textarea>
         </div>
 
-        <button type="submit">Done</button>
+        <div class="buttons">
+          <button type="submit" class="submit">Done</button>
+          <button type="button" class="cancel" @click="cancelEdit">
+            Cancel
+          </button>
+        </div>
       </form>
 
       <div class="utility">
@@ -59,34 +64,51 @@
 </template>
 
 <script>
+import Services from "@/services/services";
+
 export default {
-  props: ["id", "todo"],
+  props: ["id"],
   data() {
     return {
+      todo: {},
+      // title: "",
+      // text: "",
+      // isDone: "",
       editState: false,
-      title: this.todo.title,
-      text: this.todo.text,
-      isDone: this.todo.isDone,
     };
+  },
+  created() {
+    Services.getSingleData(this.id).then((res) => {
+      this.todo = res.data.data;
+    });
+    // this.todo = this.$store.getters.getTodoById(this.id);
+    // this.title = this.todo.title;
+    // this.text = this.todo.text;
+    // this.isDone = this.todo.isDone;
   },
   methods: {
     toggleEditState() {
       this.editState = !this.editState;
     },
-    todoUpdate() {
-      console.log({ title: this.title, text: this.text });
-      this.$store.dispatch("updateData", {
-        id: this.todo.id,
-        title: this.title,
-        text: this.text,
-      });
-
+    cancelEdit() {
       this.editState = false;
     },
+    todoUpdate() {
+      console.log({ title: this.title, text: this.text });
+      if (this.title.trim() && this.text.trim()) {
+        this.$store.dispatch("updateData", {
+          id: this.todo.id,
+          title: this.title,
+          text: this.text,
+        });
+        this.cancelEdit();
+      }
+    },
     updateTodoStatus() {
+      this.isDone = !this.isDone;
       this.$store.dispatch("updateStatus", {
         id: this.todo.id,
-        isDone: !this.isDone,
+        isDone: this.isDone,
       });
       console.log(this.isDone);
     },
@@ -139,6 +161,10 @@ export default {
   align-items: center;
   gap: 5px;
   text-decoration: none;
+}
+
+.top-bar button:hover {
+  filter: grayscale(0.5);
 }
 
 .top-bar button img {
@@ -204,14 +230,33 @@ textarea {
   border-radius: 8px;
   font-size: 16px;
   border-color: transparent;
-  color: white;
-  background: #744be4;
   transition: all 200ms ease;
-}
-button:hover {
-  background: #1e0059;
+  cursor: pointer;
 }
 
+button.submit {
+  color: white;
+  background: #744be4;
+}
+
+button.submit:hover {
+  filter: grayscale(0.5);
+}
+
+button.cancel:hover {
+  filter: brightness(0.9);
+}
+
+button.cancel {
+  background: white;
+  color: #562bcb;
+  border: 1px solid #744be4;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
 .utility {
   width: 25vw;
   background-color: white;
