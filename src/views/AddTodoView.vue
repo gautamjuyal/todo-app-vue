@@ -12,27 +12,58 @@
       </div>
 
       <button type="submit">Add todo</button>
+
+      <NotificationCard :status="notifStatus" v-show="showNotif">{{
+        notifText
+      }}</NotificationCard>
     </form>
   </div>
 </template>
 
 <script>
+import Services from "@/services/services";
+import NotificationCard from "@/components/NotificationCard.vue";
+
 export default {
+  components: {
+    NotificationCard,
+  },
   data() {
     return {
       inputTitle: "",
       inputText: "",
+      showNotif: false,
+      notifStatus: "",
+      notifText: "",
     };
   },
   methods: {
+    showNotifHandler(status, text) {
+      this.notifStatus = status;
+      this.notifText = text;
+      this.showNotif = true;
+      setTimeout(() => {
+        this.showNotif = false;
+      }, 2000);
+    },
     submitHandler() {
       if (this.inputTitle.trim() && this.inputText.trim()) {
-        this.$store.dispatch("addData", {
+        Services.postData({
           title: this.inputTitle,
-          text: this.inputText,
-        });
-        this.inputTitle = "";
-        this.inputText = "";
+          subText: this.inputText,
+          isDone: false,
+          date: new Date(),
+        })
+          .then((res) => {
+            if (res.data.status === "success") {
+              this.showNotifHandler("success", "Todo created successfully");
+              this.inputTitle = "";
+              this.inputText = "";
+            }
+          })
+          .catch((err) => this.showNotifHandler("failure", err));
+      } else {
+        this.showNotifHandler("failure", "Can not save empty todo");
       }
     },
   },

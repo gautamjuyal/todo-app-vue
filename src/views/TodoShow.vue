@@ -8,7 +8,7 @@
       >
       <div class="todo-actions">
         <button type="button" @click="updateTodoStatus">
-          <img src="@/assets/icons/check.svg" /><span v-if="todo.isDone"
+          <img src="@/assets/icons/check.svg" /><span v-if="isDone"
             >Mark as Undone</span
           >
           <span v-else>Mark as Done</span>
@@ -21,8 +21,8 @@
 
     <div class="main-area">
       <div class="content-area" v-if="!editState">
-        <h1>{{ todo.title }}</h1>
-        <p>{{ todo.subText }}</p>
+        <h1>{{ title }}</h1>
+        <p>{{ text }}</p>
       </div>
 
       <form class="edit-area" @submit.prevent="todoUpdate" v-else>
@@ -71,15 +71,19 @@ export default {
   data() {
     return {
       todo: {},
-      // title: "",
-      // text: "",
-      // isDone: "",
+      title: "",
+      text: "",
+      isDone: "",
+      date: "",
       editState: false,
     };
   },
   created() {
     Services.getSingleData(this.id).then((res) => {
       this.todo = res.data.data;
+      this.title = this.todo.title;
+      this.text = this.todo.subText;
+      this.isDone = this.todo.isDone;
     });
     // this.todo = this.$store.getters.getTodoById(this.id);
     // this.title = this.todo.title;
