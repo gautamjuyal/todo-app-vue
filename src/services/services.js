@@ -19,4 +19,10 @@ export default {
   postData(note) {
     return apiClient.post("/notes", note);
   },
+  deleteData(id) {
+    return apiClient.delete("/notes/" + id);
+  },
+  patchData(id, data) {
+    return apiClient.patch(`/notes/${id}`, data);
+  },
 };

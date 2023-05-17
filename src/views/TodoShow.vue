@@ -1,7 +1,7 @@
 <template>
   <div class="todo-show">
     <div class="top-bar">
-      <router-link :to="{ name: 'home' }"
+      <router-link :to="{ name: 'home' }" class="router-link"
         ><button type="button">
           <img src="@/assets/icons/back.svg" /><span>Back</span>
         </button></router-link
@@ -15,6 +15,10 @@
         </button>
         <button type="button" @click="toggleEditState">
           <img src="@/assets/icons/edit.svg" /><span>Edit</span>
+        </button>
+        <button type="button" @click="showDeleteModal">
+          <img src="@/assets/icons/delete.svg" alt="delete" />
+          <span>Delete</span>
         </button>
       </div>
     </div>
@@ -60,14 +64,31 @@
         </div>
       </div>
     </div>
+    <BackdropHelper v-if="showingDeleteModal">
+      <div class="delete-modal">
+        <div>Are you sure, you want to delete this item?</div>
+        <div>
+          <button type="button" class="submit" @click="deleteTodoHandler">
+            Yes, Delete it
+          </button>
+          <button type="button" class="cancel" @click="removeModalHandler">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </BackdropHelper>
   </div>
 </template>
 
 <script>
+import BackdropHelper from "@/components/BackdropHelper.vue";
 import Services from "@/services/services";
 
 export default {
   props: ["id"],
+  components: {
+    BackdropHelper,
+  },
   data() {
     return {
       todo: {},
@@ -76,6 +97,7 @@ export default {
       isDone: "",
       date: "",
       editState: false,
+      showingDeleteModal: false,
     };
   },
   created() {
@@ -91,6 +113,19 @@ export default {
     // this.isDone = this.todo.isDone;
   },
   methods: {
+    showDeleteModal() {
+      this.showingDeleteModal = true;
+    },
+    removeModalHandler() {
+      this.showingDeleteModal = false;
+    },
+    deleteTodoHandler() {
+      Services.deleteData(this.id)
+        .then((res) => {
+          if (res.data.status === "success") this.showingDeleteModal = false;
+        })
+        .catch((err) => console.log(err));
+    },
     toggleEditState() {
       this.editState = !this.editState;
     },
@@ -100,20 +135,23 @@ export default {
     todoUpdate() {
       console.log({ title: this.title, text: this.text });
       if (this.title.trim() && this.text.trim()) {
-        this.$store.dispatch("updateData", {
-          id: this.todo.id,
+        Services.patchData(this.id, {
           title: this.title,
-          text: this.text,
+          subText: this.text,
+        }).then((res) => {
+          if (res.data.status === "success") this.cancelEdit();
         });
-        this.cancelEdit();
       }
     },
     updateTodoStatus() {
-      this.isDone = !this.isDone;
-      this.$store.dispatch("updateStatus", {
-        id: this.todo.id,
-        isDone: this.isDone,
+      Services.patchData(this.id, { isDone: !this.isDone }).then((res) => {
+        if (res.data.status === "success") this.isDone = !this.isDone;
       });
+      // this.isDone = !this.isDone;
+      // this.$store.dispatch("updateStatus", {
+      //   id: this.todo.id,
+      //   isDone: this.isDone,
+      // });
       console.log(this.isDone);
     },
   },
@@ -121,6 +159,36 @@ export default {
 </script>
 
 <style scoped>
+.router-link {
+  text-decoration: none;
+}
+
+.delete-modal {
+  min-width: 400px;
+  min-height: 100px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  gap: 30px;
+}
+
+.delete-modal div {
+  display: flex;
+  gap: 20px;
+}
+
+.delete-modal button {
+  min-width: 150px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border-color: transparent;
+}
 .todo-show {
   background-color: #f2f6fe;
   display: flex;

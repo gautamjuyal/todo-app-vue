@@ -57,6 +57,10 @@ export default {
           .then((res) => {
             if (res.data.status === "success") {
               this.showNotifHandler("success", "Todo created successfully");
+              // this.$router.push({
+              //   name: "todo-show",
+              //   params: { id: res.data.data._id },
+              // });
               this.inputTitle = "";
               this.inputText = "";
             }
