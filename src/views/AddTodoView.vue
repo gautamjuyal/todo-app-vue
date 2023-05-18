@@ -1,6 +1,6 @@
 <template>
   <div class="add-todo-page">
-    <h1>Add a todo</h1>
+    <h1 class="main-view-header">Add your note</h1>
     <form @submit.prevent="submitHandler">
       <div class="input-field">
         <label for="new-todo-title">Title</label>

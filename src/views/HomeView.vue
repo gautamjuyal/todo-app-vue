@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Here are your To-Dos</h1>
+    <h1 class="main-view-header">Your Todos</h1>
     <TodoBoard />
   </div>
 </template>
@@ -31,6 +31,7 @@ export default {
   background: #6d6d6d;
   border-radius: 25px;
 }
+
 .home {
   width: 100%;
   height: 100vh;

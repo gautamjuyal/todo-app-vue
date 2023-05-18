@@ -122,7 +122,10 @@ export default {
     deleteTodoHandler() {
       Services.deleteData(this.id)
         .then((res) => {
-          if (res.data.status === "success") this.showingDeleteModal = false;
+          if (res.data.status === "success") {
+            this.showingDeleteModal = false;
+            this.$router.push({ name: "home" });
+          }
         })
         .catch((err) => console.log(err));
     },

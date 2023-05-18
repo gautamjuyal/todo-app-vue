@@ -7,7 +7,7 @@
         :src="link.src"
         :page="link.page"
         :isActive="link.isActive"
-        @mouseover="clickHandler"
+        @click="clickHandler.bind(null, link.src)"
       ></NavLink>
     </div>
     <div class="actions">
@@ -33,10 +33,10 @@ export default {
   },
   components: { NavLink },
   methods: {
-    clickHandler() {
-      // console.log("click");
-      // for (let link in this.links) {
-      //   console.log("clicked", link);
+    clickHandler(src) {
+      console.log("what");
+      this.links.find((link) => link.src === src).isActive = true;
+
       //   if (link.src === e) link.isActive = true;
       //   else link.isActive = false;
       // }
