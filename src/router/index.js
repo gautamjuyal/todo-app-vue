@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AddTodoView from "@/views/AddTodoView.vue";
 import TodoShow from "@/views/TodoShow.vue";
+import SearchView from "@/views/SearchView";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const routes = [
     name: "todo-show",
     component: TodoShow,
     props: true,
+  },
+  {
+    path: "/search",
+    name: "search-view",
+    component: SearchView,
   },
 ];
 

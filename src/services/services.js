@@ -10,8 +10,9 @@ const apiClient = axios.create({
 });
 
 export default {
-  getData() {
-    return apiClient.get("/notes");
+  getData(payload) {
+    if (payload) return apiClient.get(`/notes?search=${payload}`);
+    else return apiClient.get(`/notes`);
   },
   getSingleData(id) {
     return apiClient.get("/notes/" + id);

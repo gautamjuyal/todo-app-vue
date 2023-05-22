@@ -18,16 +18,23 @@ import CardLoader from "@/components/CardLoader.vue";
 import Services from "@/services/services";
 
 export default {
+  props: { reqPayload: String },
   components: {
     TodoCard,
     CardLoader,
   },
   created() {
-    Services.getData().then((res) => {
+    Services.getData(this.reqPayload).then((res) => {
       this.todoArray = res.data.data;
       this.cardsLoading = false;
     });
   },
+  // beforeUpdate() {
+  //   Services.getData(this.reqPayload).then((res) => {
+  //     this.todoArray = res.data.data;
+  //     this.cardsLoading = false;
+  //   });
+  // },
   data() {
     return {
       todoArray: [],

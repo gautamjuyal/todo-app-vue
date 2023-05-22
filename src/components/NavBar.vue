@@ -26,7 +26,7 @@ export default {
       links: [
         { src: "todos", page: "home", isActive: false },
         { src: "add", page: "add-todo", isActive: false },
-        { src: "search", page: "", isActive: false },
+        { src: "search", page: "search-view", isActive: false },
         { src: "audio", page: "", isActive: false },
       ],
     };
