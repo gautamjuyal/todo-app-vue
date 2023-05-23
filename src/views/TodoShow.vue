@@ -7,6 +7,9 @@
         </button></router-link
       >
       <div class="todo-actions">
+        <button type="button">
+          <img src="@/assets/icons/tts.svg" /><span>Text to Speech</span>
+        </button>
         <button type="button" @click="updateTodoStatus">
           <img src="@/assets/icons/check.svg" /><span v-if="isDone"
             >Mark as Undone</span
