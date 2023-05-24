@@ -26,4 +26,9 @@ export default {
   patchData(id, data) {
     return apiClient.patch(`/notes/${id}`, data);
   },
+  getTts(data) {
+    return apiClient.post("/tts/" + data.id, {
+      text: `${data.title} ${data.text}`,
+    });
+  },
 };

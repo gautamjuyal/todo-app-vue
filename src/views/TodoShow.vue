@@ -7,8 +7,11 @@
         </button></router-link
       >
       <div class="todo-actions">
-        <button type="button">
-          <img src="@/assets/icons/tts.svg" /><span>Text to Speech</span>
+        <button type="button" @click="toggleTtsPlay">
+          <img src="@/assets/icons/tts.svg" /><span v-if="!ttsPlaying"
+            >Play TTS</span
+          >
+          <span v-else>Pause TTS</span>
         </button>
         <button type="button" @click="updateTodoStatus">
           <img src="@/assets/icons/check.svg" /><span v-if="isDone"
@@ -86,6 +89,7 @@
 <script>
 import BackdropHelper from "@/components/BackdropHelper.vue";
 import Services from "@/services/services";
+// import NotificationCard from "@/components/NotificationCard.vue";
 
 export default {
   props: ["id"],
@@ -93,6 +97,7 @@ export default {
     BackdropHelper,
   },
   data() {
+    const ttsAud = new Audio();
     return {
       todo: {},
       title: "",
@@ -101,6 +106,8 @@ export default {
       date: "",
       editState: false,
       showingDeleteModal: false,
+      ttsAudio: ttsAud,
+      ttsPlaying: false,
     };
   },
   created() {
@@ -110,12 +117,34 @@ export default {
       this.text = this.todo.subText;
       this.isDone = this.todo.isDone;
     });
+
     // this.todo = this.$store.getters.getTodoById(this.id);
     // this.title = this.todo.title;
     // this.text = this.todo.text;
     // this.isDone = this.todo.isDone;
   },
   methods: {
+    getTts() {
+      Services.getTts({ id: this.id, title: this.title, text: this.text }).then(
+        (res) => {
+          const audio = new Audio();
+          audio.src = res.data.audio;
+          this.ttsAudio = audio;
+        }
+      );
+    },
+    toggleTtsPlay() {
+      if (!this.ttsAudio.src) {
+        this.getTts();
+      }
+      if (this.ttsPlaying) {
+        this.ttsAudio.pause();
+        this.ttsPlaying = false;
+      } else {
+        this.ttsAudio.play();
+        this.ttsPlaying = true;
+      }
+    },
     showDeleteModal() {
       this.showingDeleteModal = true;
     },
@@ -139,13 +168,16 @@ export default {
       this.editState = false;
     },
     todoUpdate() {
-      console.log({ title: this.title, text: this.text });
+      // console.log({ title: this.title, text: this.text });
       if (this.title.trim() && this.text.trim()) {
         Services.patchData(this.id, {
           title: this.title,
           subText: this.text,
         }).then((res) => {
-          if (res.data.status === "success") this.cancelEdit();
+          if (res.data.status === "success") {
+            this.cancelEdit();
+            this.getTts();
+          }
         });
       }
     },
