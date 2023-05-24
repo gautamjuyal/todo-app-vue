@@ -4,10 +4,11 @@ Full fledged Notes/Todo app with user friendly UI. Frontend built in VueJS 2, [b
 
 ## Features
 
--Built in notification system (currently limited to add page only)
--Skeleton loading animation
--Searching items by keyword
--Text to speech support for todos
+- Built in notification system (currently limited to add page only)
+- Text to speech support for todos
+- Searching items by keyword
+- Skeleton loading animation
+- Custom scrollbar
 
 ## Gallery
 
