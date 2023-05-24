@@ -28,7 +28,7 @@ export default {
   },
   getTts(data) {
     return apiClient.post("/tts/" + data.id, {
-      text: `${data.title} ${data.text}`,
+      text: `${data.title} . ${data.text}`,
     });
   },
 };
