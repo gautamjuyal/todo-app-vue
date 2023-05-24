@@ -36,6 +36,7 @@ export default {
   flex-direction: column;
   padding: 20px 30px;
   overflow-y: scroll;
+  background: #f2f6fe;
 }
 
 .search-bar {

@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import AddTodoView from "@/views/AddTodoView.vue";
 import TodoShow from "@/views/TodoShow.vue";
 import SearchView from "@/views/SearchView";
+import AudioNotes from "@/views/AudioNotes";
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,11 @@ const routes = [
     path: "/search",
     name: "search-view",
     component: SearchView,
+  },
+  {
+    path: "/audio-notes",
+    name: "audio-notes",
+    component: AudioNotes,
   },
 ];
 
